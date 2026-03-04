@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Production-ready Generative AI job preparation system that analyzes resumes, compares job descriptions, detects skill gaps, and generates personalized AI-powered interview questions.",
+  "homepage": "https://github.com/Abhishekhivarkar/ResuNex#readme",
+  "bugs": {
+    "url": "https://github.com/Abhishekhivarkar/ResuNex/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abhishekhivarkar/ResuNex.git"
+  },
+  "license": "MIT",
+  "author": "Abhishek Hivarkar",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.3",
+    "sib-api-v3-sdk": "^8.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
