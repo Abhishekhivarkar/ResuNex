@@ -21,7 +21,6 @@ export const registerSchema = Joi.object({
 
   password: Joi.string()
     .min(6)
-    .pattern(new RegExp("^(?=.*[A-Z])(?=.*[0-9])"))
     .required()
     .messages({
       "string.pattern.base":
@@ -48,7 +47,6 @@ export const loginSchema = Joi.object({
 export const resetPasswordSchema = Joi.object({
   newPassword: Joi.string()
     .min(6)
-    .pattern(new RegExp("^(?=.*[A-Z])(?=.*[0-9])"))
     .required()
     .messages({
       "string.empty": "New password is required",

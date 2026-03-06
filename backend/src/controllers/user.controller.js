@@ -13,7 +13,7 @@ export const getMeController = async (req,res) =>{
   
   return res.status(200).json({
    success:true,
-   data:{
+   user:{
     username:user.userName,
     email:user.email
    }
