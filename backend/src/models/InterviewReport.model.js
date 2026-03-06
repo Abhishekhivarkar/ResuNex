@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 
 
 const technicalQuestionSchema = new mongoose.Schema({
+ 
  question:{
   type:String,
   required:true
@@ -62,7 +63,10 @@ const preperationPlanSchema = new mongoose.Schema({
  }]
 })
 const interviewReportSchema = new mongoose.Schema({
- 
+  user:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"User"
+  },
   jobDescription:{
    required:true,
    type:String

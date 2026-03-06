@@ -2,9 +2,9 @@ import { GoogleGenAI } from "@google/genai"
 import { z } from "zod"
 import { zodToJsonSchema } from "zod-to-json-schema"
 import puppeteer from "puppeteer"
-
+import { config } from "../configs/env.config.js"
 const ai = new GoogleGenAI({
- apiKey: process.env.GOOGLE_GENAI_API_KEY
+ apiKey: config.GOOGLE_GENAI_API_KEY
 })
 
 const interviewReportSchema = z.object({
@@ -44,12 +44,12 @@ const interviewReportSchema = z.object({
   "Behavioral questions that can be asked in the interview along with their intention and how to answer them"
  ),
 
- skillGaps: z.array(
+ skillGap: z.array(
   z.object({
    skill: z.string().describe(
     "The skill which the candidate is lacking"
    ),
-   severity: z.enum(["low", "medium", "high"]).describe(
+   severity: z.enum(["LOW", "MEDIUM", "HIGH"]).describe(
     "The severity of this skill gap, i.e. how important is this skill for the job and how much it can impact the candidate's chances"
    )
   })
@@ -84,14 +84,39 @@ export async function generateInterviewReport({
  jobDescription
 }) {
 
- const prompt = `Generate an interview report for a candidate with the following details:
- Resume: ${resume}
- Self Description: ${selfDescription}
- Job Description: ${jobDescription}
+const prompt = `
+You are an AI interview preparation assistant.
+
+Return ONLY JSON in the exact schema format.
+
+Rules:
+- technicalQuestions must contain objects with:
+  question, intention, answer
+- behavioralQuestions must contain objects with:
+  question, intention, answer
+- skillGap must contain objects with:
+  skill, severity (LOW, MEDIUM, HIGH)
+- preparationPlan must contain objects with:
+  day, focus, tasks
+
+Generate:
+- 5 technical questions
+- 3 behavioral questions
+- 5 skill gaps
+- 7 day preparation plan
+
+Resume:
+${resume}
+
+Self Description:
+${selfDescription}
+
+Job Description:
+${jobDescription}
 `
 
  const response = await ai.models.generateContent({
-  model: "gemini-3-flash-preview",
+  model: "gemini-1.5-pro",
   contents: prompt,
   config: {
    responseMimeType: "application/json",
