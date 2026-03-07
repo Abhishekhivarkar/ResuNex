@@ -1,6 +1,6 @@
 import "../../auth/auth.form.scss"
 import "../style/home.scss"
-
+import "../style/interview.scss"
 export const Home = () => {
   return (
     <main className="home">

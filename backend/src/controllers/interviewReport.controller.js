@@ -2,6 +2,8 @@ import { PDFParse } from "pdf-parse"
 import InterviewReportModel from "../models/InterviewReport.model.js"
 import { generateInterviewReport } from "../services/ai.service.js"
 
+
+
 export const InterviewReport = async (req,res)=>{
  try{
 
@@ -147,17 +149,18 @@ const normalizePreparation = (arr = []) => {
   : aiData.matchScore || 0
 
   
-  const interviewReport = await InterviewReportModel.create({
-   user:req.user.id,
-   resume:resumeContent,
-   selfDescription,
-   jobDescription,
-   matchScore,
-   technicalQuestions,
-   behavioralQuestions,
-   skillGap,
-   preparationPlan
-  })
+const interviewReport = await InterviewReportModel.create({
+ user:req.user.id,
+ title: aiData?.title || "Interview Preparation Report",
+ resume:resumeContent,
+ selfDescription,
+ jobDescription,
+ matchScore,
+ technicalQuestions,
+ behavioralQuestions,
+ skillGap,
+ preparationPlan
+})
 
   return res.status(201).json({
    success:true,
@@ -173,5 +176,71 @@ const normalizePreparation = (arr = []) => {
    success:false,
    message:"Failed to generate interview report"
   })
+ }
+}
+
+
+export const getAllReports =async (req,res) => {
+  try{
+    const userId = req.user.id
+
+    const interviewReport = await InterviewReportModel.find({
+      user:userId
+    }).sort({createdAt:-1}).select("-resume -selfDescription -jobDescription -_v -technicalQuestions -behavioralQuestions -skillGap -preparationPlan")
+
+    if (!interviewReport){
+      return res.status(400).json({
+        success:false,
+        message:"No report found"
+      })
+    }
+
+    return res.status(200).json({
+      success:true,
+      interviewReport,
+      count:interviewReport.length
+    })
+  }catch(err){
+    console.log("GET ALL REPORTS API ERROR : ", err)
+    res.status(500).json({
+      success:false,
+      message:"Failed to get all report data "
+    })
+  }
+}
+
+
+export const getReportById = async (req,res) => {
+ try{
+
+  const { interviewId } = req.params
+  const userId = req.user.id
+
+  const interviewReport = await InterviewReportModel.findOne({
+   _id: interviewId,
+   user: userId
+  })
+
+  if (!interviewReport){
+   return res.status(404).json({
+    success:false,
+    message:"No report found"
+   })
+  }
+
+  return res.status(200).json({
+   success:true,
+   interviewReport
+  })
+
+ }catch(err){
+
+  console.log("GET REPORT BY ID API ERROR : ",err)
+
+  res.status(500).json({
+   success:false,
+   message:"Failed to get interview report by id"
+  })
+
  }
 }

@@ -89,7 +89,11 @@ const interviewReportSchema = new mongoose.Schema({
   technicalQuestions:[technicalQuestionSchema],
   skillGap:[skillGapSchema],
   behavioralQuestions:[behavioralQuestionSchema],
-  preparationPlan:[preparationPlanSchema]
+  preparationPlan:[preparationPlanSchema],
+  title:{
+    type:String,
+    required:true
+  }
 },{timestamps:true})
 
 export default mongoose.model("interviewReport",interviewReportSchema)
