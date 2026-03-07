@@ -30,7 +30,7 @@ if(loading){
               type="email"
               id="email"
               placeholder="Enter your email"
-              onChange={(e)=>setEmail(e.target.value)}
+              
             />
 
           </div>

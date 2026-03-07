@@ -21,7 +21,7 @@ export const InterviewReport = async (req,res)=>{
    })
   }
 
-  // ---------------- PDF PARSE ----------------
+
   const parser = new PDFParse({
    data:req.file.buffer
   })
@@ -36,16 +36,16 @@ export const InterviewReport = async (req,res)=>{
    })
   }
 
-  // ---------------- AI CALL ----------------
+
   const aiData = await generateInterviewReport({
    resume:resumeContent,
    selfDescription,
    jobDescription
   })
 
-  console.log("AI RESPONSE:",aiData)
 
-  // ---------------- NORMALIZE TECH QUESTIONS ----------------
+
+ 
   const normalizeTechnical = (arr=[])=>{
    if(!Array.isArray(arr)) return []
 
@@ -58,7 +58,7 @@ export const InterviewReport = async (req,res)=>{
    }))
   }
 
-  // ---------------- NORMALIZE BEHAVIORAL ----------------
+
   const normalizeBehavioral = (arr=[])=>{
    if(!Array.isArray(arr)) return []
 
@@ -71,7 +71,6 @@ export const InterviewReport = async (req,res)=>{
    }))
   }
 
-  // ---------------- NORMALIZE SKILL GAP ----------------
   const normalizeSkillGap = (arr=[])=>{
    const result=[]
 
@@ -116,26 +115,38 @@ export const InterviewReport = async (req,res)=>{
    return result
   }
 
-  // ---------------- NORMALIZE PREPARATION PLAN ----------------
-  const normalizePreparation = (arr=[])=>{
-   if(!Array.isArray(arr)) return []
+const normalizePreparation = (arr = []) => {
+ if (!Array.isArray(arr)) return []
 
-   return arr.map((item,index)=>({
-    day:index+1,
-    focus:item,
-    tasks:[item]
-   }))
-  }
+ 
+ if (typeof arr[0] === "object") {
+  return arr.map(item => ({
+   day: item.day || 1,
+   focus: item.focus || "Interview preparation",
+   tasks: Array.isArray(item.tasks) ? item.tasks : []
+  }))
+ }
 
-  // ---------------- APPLY NORMALIZATION ----------------
+
+ return arr.map((item, index) => ({
+  day: index + 1,
+  focus: item,
+  tasks: [item]
+ }))
+}
+
+  
   const technicalQuestions = normalizeTechnical(aiData?.technicalQuestions)
   const behavioralQuestions = normalizeBehavioral(aiData?.behavioralQuestions)
   const skillGap = normalizeSkillGap(aiData?.skillGap)
   const preparationPlan = normalizePreparation(aiData?.preparationPlan)
 
-  const matchScore = aiData?.matchScore || 0
+  const matchScore =
+ aiData?.matchScore <= 1
+  ? Math.round(aiData.matchScore * 100)
+  : aiData.matchScore || 0
 
-  // ---------------- SAVE DB ----------------
+  
   const interviewReport = await InterviewReportModel.create({
    user:req.user.id,
    resume:resumeContent,

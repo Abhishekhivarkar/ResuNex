@@ -4,6 +4,7 @@ import {Register} from "./features/auth/pages/Register"
 import {ForgotPassword} from "./features/auth/pages/ForgotPassword"
 import {ResetPassword} from "./features/auth/pages/ResetPassword"
 import {Protected} from "./features/auth/components/Protected"
+import { Home } from "./features/interview/pages/Home"
 export const router = createBrowserRouter([
  {
   path:"/login",
@@ -23,6 +24,6 @@ export const router = createBrowserRouter([
  },
  {
   path:"/",
-  element:<Protected><h1>Home page</h1></Protected>
+  element:<Protected><Home/></Protected>
  }
  ])

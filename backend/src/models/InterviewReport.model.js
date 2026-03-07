@@ -48,7 +48,7 @@ const skillGapSchema = new mongoose.Schema({
 },{_id:false})
 
 
-const preperationPlanSchema = new mongoose.Schema({
+const preparationPlanSchema = new mongoose.Schema({
  day:{
   type:Number,
   required:true
@@ -89,7 +89,7 @@ const interviewReportSchema = new mongoose.Schema({
   technicalQuestions:[technicalQuestionSchema],
   skillGap:[skillGapSchema],
   behavioralQuestions:[behavioralQuestionSchema],
-  preperationPlan:[preperationPlanSchema]
+  preparationPlan:[preparationPlanSchema]
 },{timestamps:true})
 
 export default mongoose.model("interviewReport",interviewReportSchema)
