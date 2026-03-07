@@ -7,7 +7,22 @@ export const Protected = ({children}) =>{
   return <main><p>Loading...</p></main>
  }
  if(!user){
-  return <Navigate to={"/login"}/>
+  return <Navigate to="/login" replace/>
  }
+ return children
+}
+
+export const PublicRoute = ({ children }) => {
+
+ const { loading, user } = useAuth()
+
+ if (loading) {
+  return <main><p>Loading...</p></main>
+ }
+
+ if (user) {
+  return <Navigate to="/" replace />
+ }
+
  return children
 }
