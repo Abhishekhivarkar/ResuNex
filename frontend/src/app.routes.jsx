@@ -8,7 +8,8 @@ import { ResetPassword } from "./features/auth/pages/ResetPassword"
 import { Protected, PublicRoute } from "./features/auth/components/Protected"
 
 import { Home } from "./features/interview/pages/Home"
-import {Interview} from "./features/interview/pages/Interview"
+import Interview from "./features/interview/pages/Interview"
+
 
 export const router = createBrowserRouter([
  {

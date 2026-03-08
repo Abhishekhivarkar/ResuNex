@@ -1,10 +1,14 @@
 import { useContext } from "react"
 import { AuthContext } from "../auth.context.jsx"
-import { resetPassword, forgotPassword, login, register, logout, getMe } from "../services/auth.api.js"
+import { resetPassword, forgotPassword, login, register, logout } from "../services/auth.api.js"
 
 export const useAuth = () => {
 
  const context = useContext(AuthContext)
+
+ if (!context){
+  throw new Error("useInterview must be used within an InterviewProvider")
+ }
  const { user, setUser, loading, setLoading } = context
 
 
