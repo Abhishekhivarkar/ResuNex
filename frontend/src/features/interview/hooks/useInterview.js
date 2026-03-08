@@ -4,9 +4,11 @@ import {
   getReportById,
 } from "../services/interview.api.js";
 import { InterviewContext } from "../interview.context.jsx";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useParams } from "react-router";
 
 export const useInterview = () => {
+  const {interviewId} = useParams()
   const context = useContext(InterviewContext);
   const { report, setReport, loading, setLoading, reports, setReports } =
     context;
@@ -27,7 +29,7 @@ export const useInterview = () => {
 
       if (data && data.interviewReport) {
         setReport(data.interviewReport);
-        return true;
+        return data.interviewReport;
       }
     } catch (err) {
       console.log(err);
@@ -44,7 +46,7 @@ export const useInterview = () => {
 
       if (data && data.interviewReport) {
         setReport(data.interviewReport);
-        return true;
+        return data.interviewReport
       }
     } catch (err) {
       console.log(err);
@@ -60,7 +62,7 @@ export const useInterview = () => {
 
       if (data && data.interviewReport) {
         setReports(data.interviewReport);
-        return true;
+        return data.interviewReport;
       }
     } catch (err) {
       console.log(err);
@@ -68,6 +70,14 @@ export const useInterview = () => {
       setLoading(false);
     }
   };
+
+  useEffect(()=>{
+    if (interviewId){
+      handleGetInterviewReportById(interviewId)
+    }else{
+      handleGetAllReports()
+    }
+  },[interviewId])
   return {
     loading,
     setLoading,

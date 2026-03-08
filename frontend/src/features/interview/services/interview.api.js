@@ -16,7 +16,9 @@ export const interviewReport =async ({selfDescription,jobDescription, resume}) =
 
         
         const response = await api.post("/api/interview/report",formData,{
+            headers:{
             "Content-Type":"multipart/form-data"
+            }
         })
 
         return response.data
@@ -28,7 +30,7 @@ export const interviewReport =async ({selfDescription,jobDescription, resume}) =
 
 export const getAllReports = async () =>{
     try{
-        const response = await api.get("/interview/report/all")
+        const response = await api.get("/api/interview/report/all")
 
         return response.data
 
@@ -37,7 +39,7 @@ export const getAllReports = async () =>{
     }  
 }
 
-export const getReportById = async () =>{
+export const getReportById = async (interviewId) =>{
     try{
         const response = await api.get(`/api/interview/report/${interviewId}`)
 
