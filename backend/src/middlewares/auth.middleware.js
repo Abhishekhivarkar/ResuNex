@@ -5,17 +5,16 @@ import User from "../models/User.model.js"
 export const authMiddleware = async (req, res, next) => {
   try {
 
-    const token =
-      req.cookies?.token ||
-      req.headers.authorization?.split(" ")[1]
+    const authHeader = req.headers.authorization
 
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
         success: false,
         message: "Not authorized. Please login."
       })
     }
 
+    const token = authHeader.split(" ")[1]
 
     const blackListToken = await BlackListTokenModel.findOne({ token })
 
@@ -25,7 +24,6 @@ export const authMiddleware = async (req, res, next) => {
         message: "Token is blacklisted. Please login again."
       })
     }
-
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 

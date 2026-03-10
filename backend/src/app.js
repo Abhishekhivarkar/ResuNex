@@ -7,7 +7,7 @@ import cors from "cors"
 import generateInterviewReportRoutes from "./routes/interviewReport.routes.js"
 import { config } from "./configs/env.config.js"
 const app = express()
-
+app.set("trust proxy", 1)
 app.use(cors({
   origin: config.CLIENT_URL,
   credentials: true,

@@ -38,12 +38,7 @@ export const register = async (req, res) => {
 
     const token = generateToken(user)
 
-  res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  maxAge: 7 * 24 * 60 * 60 * 1000
-})
+
 
     res.status(201).json({
       message: "User registered successfully",
@@ -87,12 +82,7 @@ export const  login = async (req, res) => {
 
     const token = generateToken(user)
 
- res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  maxAge: 7 * 24 * 60 * 60 * 1000
-})
+
 
     res.status(200).json({
       message: " successful",
@@ -112,19 +102,14 @@ export const  login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-
-    const token = req.cookies?.token || req.headers.authorization?.split(" ")[1]
+    const token = req.headers.authorization?.split(" ")[1]
 
     if (token) {
       await BlackListTokenModel.create({ token })
     }
 
-    res.cookie("token", "", {
-      httpOnly: true,
-      expires: new Date(0)
-    })
-
     res.status(200).json({
+      success: true,
       message: "Logged out successfully"
     })
 
