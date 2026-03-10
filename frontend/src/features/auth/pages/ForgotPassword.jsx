@@ -9,15 +9,15 @@ export const ForgotPassword = () => {
 
   const {loading,handleForgotPassword} = useAuth()
 
-  const onSubmit = async (e) =>{
-    e.preventDefault()
+const onSubmit = async (e) =>{
+  e.preventDefault()
 
-    const data = await handleForgotPassword({email})
+  const data = await handleForgotPassword({email})
 
-    if(data?.success){
-      setEmailSent(true)
-    }
+  if(data){
+    setEmailSent(true)
   }
+}
 
   if(loading){
     return <main><p>Loading...</p></main>
