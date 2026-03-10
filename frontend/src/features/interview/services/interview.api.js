@@ -1,12 +1,20 @@
 import axios from "axios";
 
-
 const api = axios.create({
-    baseURL:"https://resunex.onrender.com",
-    withCredentials:true
+    baseURL:"https://resunex.onrender.com"
 })
 
-export const interviewReport =async ({selfDescription,jobDescription, resume}) =>{
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token")
+
+    if(token){
+        config.headers.Authorization = `Bearer ${token}`
+    }
+
+    return config
+})
+
+export const interviewReport = async ({selfDescription,jobDescription, resume}) =>{
     try{
 
         const formData = new FormData()
@@ -14,10 +22,9 @@ export const interviewReport =async ({selfDescription,jobDescription, resume}) =
         formData.append("selfDescription", selfDescription)
         formData.append("resume", resume)
 
-        
         const response = await api.post("/api/interview/report",formData,{
             headers:{
-            "Content-Type":"multipart/form-data"
+                "Content-Type":"multipart/form-data"
             }
         })
 
@@ -28,21 +35,18 @@ export const interviewReport =async ({selfDescription,jobDescription, resume}) =
     }
 }
 
-export const getAllReports = async () =>{
+export const getAllReports = async ()=>{
     try{
         const response = await api.get("/api/interview/report/all")
-
         return response.data
-
     }catch(err){
         console.log(err)
     }  
 }
 
-export const getReportById = async (interviewId) =>{
+export const getReportById = async (interviewId)=>{
     try{
         const response = await api.get(`/api/interview/report/${interviewId}`)
-
         return response.data
     }catch(err){
         console.log(err)
