@@ -1,4 +1,4 @@
-import { logout } from "../../auth/hooks/useAuth.js"
+import { useAuth } from "../../auth/hooks/useAuth.js"
 import "../../auth/auth.form.scss"
 import "../style/home.scss"
 import "../style/interview.scss"
