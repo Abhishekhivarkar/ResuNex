@@ -5,10 +5,11 @@ import userRoutes from "./routes/user.routes.js"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 import generateInterviewReportRoutes from "./routes/interviewReport.routes.js"
+import { config } from "./configs/env.config.js"
 const app = express()
 
 app.use(cors({
-  origin: "http://localhost:5173", 
+  origin: config.CLIENT_URL, 
   credentials: true
 }));
 app.use(express.json())
