@@ -1,3 +1,4 @@
+import { logout } from "../../auth/hooks/useAuth.js"
 import "../../auth/auth.form.scss"
 import "../style/home.scss"
 import "../style/interview.scss"
@@ -7,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 export const Home = () => {
   const navigate = useNavigate()
+  const { handleLogout } = useAuth()
   const { loading, handleInterviewReport, reports } = useInterview()
 
   const [selfDescription, setSelfDescription] = useState(null)
@@ -23,12 +25,17 @@ export const Home = () => {
     navigate(`/interview/report/${data._id}`)
   }
 
-
+const logoutUser = async () => {
+  await handleLogout()
+  navigate("/login")
+}
 
   return (
     <main className="home">
       <div className="container">
-
+<button onClick={logoutUser} className="logout-btn">
+  Logout
+</button>
         <h1>
           Create Your Custom <span>Interview Plan</span>
         </h1>
