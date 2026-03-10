@@ -9,8 +9,10 @@ import { config } from "./configs/env.config.js"
 const app = express()
 
 app.use(cors({
-  origin: config.CLIENT_URL, 
-  credentials: true
+  origin: config.CLIENT_URL,
+  credentials: true,
+  methods: ["GET","POST","PUT","DELETE","PATCH"],
+  allowedHeaders: ["Content-Type","Authorization"]
 }));
 app.use(express.json())
 app.use(cookieParser())

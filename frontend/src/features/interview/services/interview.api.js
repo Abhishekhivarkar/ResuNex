@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const api = axios.create({
-    baseURL:"https://resunex.onrender.com/api",
+    baseURL:"https://resunex.onrender.com",
     withCredentials:true
 })
 
