@@ -27,7 +27,7 @@ export const Home = () => {
 
 const logoutUser = async () => {
   await handleLogout()
-  navigate("/login")
+  navigate("/login",{replace:true})
 }
 
   return (
