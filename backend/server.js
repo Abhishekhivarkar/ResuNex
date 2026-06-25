@@ -7,7 +7,7 @@ const PORT = config.PORT || 5000
 const startServer =async (_,res) =>{
  try{
   await connectDB()
-  
+   
   app.listen(PORT,()=>{
    console.log("server running on port",PORT)
   })
