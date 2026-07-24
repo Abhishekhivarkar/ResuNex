@@ -4,7 +4,7 @@ ResuNex is a **full-stack AI-powered interview preparation platform** built usin
 It analyzes a candidate's **resume, job description, and self-introduction** to generate **personalized interview preparation insights** using advanced AI models.
 
 The platform identifies **skill gaps**, generates **technical and behavioral interview questions**, and creates a **7-day preparation roadmap** to help candidates prepare effectively for job interviews.
-
+ 
 --- 
 
 # 🧠 AI Capabilities
