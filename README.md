@@ -5,7 +5,7 @@ It analyzes a candidate's **resume, job description, and self-introduction** to 
 
 The platform identifies **skill gaps**, generates **technical and behavioral interview questions**, and creates a **7-day preparation roadmap** to help candidates prepare effectively for job interviews.
 
----
+--- 
 
 # 🧠 AI Capabilities
 
