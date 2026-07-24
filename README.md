@@ -11,7 +11,7 @@ The platform identifies **skill gaps**, generates **technical and behavioral int
 
 ResuNex integrates **Groq AI (Llama-3.3-70B model)** to perform intelligent analysis on:
 
-* Resume content
+* Resume content 
 * Job description requirements
 * Candidate self-introduction
 
