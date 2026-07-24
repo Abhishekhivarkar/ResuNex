@@ -15,7 +15,7 @@ ResuNex integrates **Groq AI (Llama-3.3-70B model)** to perform intelligent anal
 * Job description requirements
 * Candidate self-introduction
 
-The system then generates:
+The system then generates: 
 
 * Technical interview questions
 * Behavioral interview questions
